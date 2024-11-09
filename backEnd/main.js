@@ -12,7 +12,7 @@ const tempClient = {
     email: "josiasmartins098@gmail.com",
     celular: "(85) 98231-7976",
     cidade: "Quixadá",
-    estado: "Ceará"
+    estado: "Ceará",
 }
 
 const getLocalStorage = () => {
@@ -42,6 +42,12 @@ const updateClient = (index, client) => {
     setLocalStorage(dbClient);
 }
 
+// CRUD - DELETE
+const deleteClient = (index) => {
+    const dbClient = readClient();
+    dbClient.splice(index, 1);
+    setLocalStorage(dbClient);
+}
 
 // Eventos
 document.getElementById('cadastrarCliente')
