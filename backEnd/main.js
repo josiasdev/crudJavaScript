@@ -7,10 +7,8 @@ const closeModal = () => document.getElementById('modal')
     .classList.remove('active')
 
 
-
-
 const tempClient = {
-    nome: "Francisco Josias Da Silva Batista",
+    nome: "Josias Batista",
     email: "josiasmartins098@gmail.com",
     celular: "(85) 98231-7976",
     cidade: "Quixadá",
@@ -28,15 +26,22 @@ const setLocalStorage = (dbClient) => {
 // CRUD - CREATE
 const createClient = (client) => {
     const dbClient = getLocalStorage();
-    dbClient.push(client);
+    dbClient.push (client);
     setLocalStorage(dbClient);
 }
 
 // CRUD - READ
-
-const readClient = (client) => {
+const readClient = () => {
     getLocalStorage();
 }
+
+// CRUD - UPDATE
+const updateClient = (index, client) => {
+    const dbClient = readClient();
+    dbClient[index] = client;
+    setLocalStorage(dbClient);
+}
+
 
 // Eventos
 document.getElementById('cadastrarCliente')
