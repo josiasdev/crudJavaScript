@@ -28,8 +28,14 @@ const setLocalStorage = (dbClient) => {
 // CRUD - CREATE
 const createClient = (client) => {
     const dbClient = getLocalStorage();
-    dbClient.push (client);
+    dbClient.push(client);
     setLocalStorage(dbClient);
+}
+
+// CRUD - READ
+
+const readClient = (client) => {
+    getLocalStorage();
 }
 
 // Eventos
