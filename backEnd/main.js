@@ -16,18 +16,18 @@ const tempClient = {
 }
 
 const getLocalStorage = () => {
-    JSON.parse(localStorage.getItem('db_client')) ?? [];
+    return JSON.parse(localStorage.getItem('db_client')) ?? [];
 }
 
 const setLocalStorage = (dbClient) => {
-    localStorage.setItem("db_client", JSON.stringify(dbClient));
+    return localStorage.setItem("db_client", JSON.stringify(dbClient));
 }
 
 // CRUD - CREATE
 const createClient = (client) => {
-    const dbClient = getLocalStorage();
-    dbClient.push(client);
-    setLocalStorage(dbClient);
+    const dbClient = getLocalStorage()
+    dbClient.push (client)
+    setLocalStorage(dbClient)
 }
 
 // CRUD - READ
@@ -57,7 +57,13 @@ const isValidFields = () =>
 // Interação com o Layout
 const saveClient = () => {
     if (isValidFields()) {
-        console.log('cadastrando cliente');
+        const client = {
+            nome: document.getElementById('nome').value,
+            email: document.getElementById('email').value,
+            celular: document.getElementById('celular').value,
+            cidade: document.getElementById('cidade').value
+        }
+        createClient(client);
     }
 }
 
