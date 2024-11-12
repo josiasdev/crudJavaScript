@@ -26,7 +26,7 @@ const setLocalStorage = (dbClient) => {
 // CRUD - CREATE
 const createClient = (client) => {
     const dbClient = getLocalStorage();
-    dbClient.push (client);
+    dbClient.push(client);
     setLocalStorage(dbClient);
 }
 
@@ -49,9 +49,19 @@ const deleteClient = (index) => {
     setLocalStorage(dbClient);
 }
 
+// Interação com o Layout
+const saveClient = () => {
+    if (isValidFields()) {
+        console.log("cadastrando cliente");
+    }
+}
+
 // Eventos
 document.getElementById('cadastrarCliente')
     .addEventListener('click', openModal)
 
 document.getElementById('modalClose')
     .addEventListener('click', closeModal)
+
+document.getElementById('salvar')
+    .addEventListener('click', saveClient)
