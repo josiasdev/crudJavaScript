@@ -49,10 +49,15 @@ const deleteClient = (index) => {
     setLocalStorage(dbClient);
 }
 
+const isValidFields = () =>
+{
+    return document.getElementById('form').reportValidity();
+}
+
 // Interação com o Layout
 const saveClient = () => {
     if (isValidFields()) {
-        console.log("cadastrando cliente");
+        console.log('cadastrando cliente');
     }
 }
 
