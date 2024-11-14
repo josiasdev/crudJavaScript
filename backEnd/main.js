@@ -1,19 +1,11 @@
 const openModal = () => {
-    document.getElementById('modal').classList.add('active')
+    return document.getElementById('modal').classList.add('active');
 }
+
 
 const closeModal = () => {
     clearFields();
-    document.getElementById('modal').classList.remove('active');
-}
-
-
-const tempClient = {
-    nome: "Josias Batista",
-    email: "josiasmartins098@gmail.com",
-    celular: "(85) 98231-7976",
-    cidade: "Quixadá",
-    estado: "Ceará",
+    return document.getElementById('modal').classList.remove('active');
 }
 
 const getLocalStorage = () => {
@@ -33,7 +25,7 @@ const createClient = (client) => {
 
 // CRUD - READ
 const readClient = () => {
-    getLocalStorage();
+    return getLocalStorage();
 }
 
 // CRUD - UPDATE
@@ -55,7 +47,7 @@ const isValidFields = () => {
 }
 
 const clearFields = () => {
-    const fieldsCampos = document.querySelectorAll(".modal-field");
+    const fieldsCampos = document.querySelectorAll('.modal-field');
     fieldsCampos.forEach(fieldsCampos => fieldsCampos.value = "");
 }
 
@@ -67,11 +59,41 @@ const saveClient = () => {
             nome: document.getElementById('nome').value,
             email: document.getElementById('email').value,
             celular: document.getElementById('celular').value,
-            cidade: document.getElementById('cidade').value
-        }
+            cidade: document.getElementById('cidade').value,
+            estado: document.getElementById('estado').value
+            }
         createClient(client);
+        updateTable();
         closeModal();
     }
+}
+
+const createRow = (client, index) => {
+    const newRow = document.createElement('tr')
+    newRow.innerHTML = `
+        <td>${client.nome}</td>
+        <td>${client.email}</td>
+        <td>${client.celular}</td>
+        <td>${client.cidade}</td>
+        <td>${client.estado}</td>
+        <td>
+            <button type="button" class="button green" id="edit-${index}">Editar</button>
+            <button type="button" class="button red" id="delete-${index}" >Excluir</button>
+        </td>
+    `
+    document.querySelector('#tableClient>tbody').appendChild(newRow)
+}
+
+const clearTable = () =>
+{
+    const rows = document.querySelectorAll('#tableClient>tbody tr');
+    rows.forEach(row => row.parentNode.removeChild(row));
+}
+
+const updateTable = () => {
+    const dbClient = readClient()
+    clearTable()
+    dbClient.forEach(createRow)
 }
 
 // Eventos
