@@ -1,10 +1,11 @@
-'use strict'
+const openModal = () => {
+    document.getElementById('modal').classList.add('active')
+}
 
-const openModal = () => document.getElementById('modal')
-    .classList.add('active')
-
-const closeModal = () => document.getElementById('modal')
-    .classList.remove('active')
+const closeModal = () => {
+    clearFields();
+    document.getElementById('modal').classList.remove('active');
+}
 
 
 const tempClient = {
@@ -26,7 +27,7 @@ const setLocalStorage = (dbClient) => {
 // CRUD - CREATE
 const createClient = (client) => {
     const dbClient = getLocalStorage()
-    dbClient.push (client)
+    dbClient.push(client)
     setLocalStorage(dbClient)
 }
 
@@ -49,10 +50,15 @@ const deleteClient = (index) => {
     setLocalStorage(dbClient);
 }
 
-const isValidFields = () =>
-{
+const isValidFields = () => {
     return document.getElementById('form').reportValidity();
 }
+
+const clearFields = () => {
+    const fieldsCampos = document.querySelectorAll(".modal-field");
+    fieldsCampos.forEach(fieldsCampos => fieldsCampos.value = "");
+}
+
 
 // Interação com o Layout
 const saveClient = () => {
@@ -64,6 +70,7 @@ const saveClient = () => {
             cidade: document.getElementById('cidade').value
         }
         createClient(client);
+        closeModal();
     }
 }
 
