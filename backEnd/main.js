@@ -61,7 +61,7 @@ const saveClient = () => {
             celular: document.getElementById('celular').value,
             cidade: document.getElementById('cidade').value,
             estado: document.getElementById('estado').value
-            }
+        }
         createClient(client);
         updateTable();
         closeModal();
@@ -84,8 +84,7 @@ const createRow = (client, index) => {
     document.querySelector('#tableClient>tbody').appendChild(newRow)
 }
 
-const clearTable = () =>
-{
+const clearTable = () => {
     const rows = document.querySelectorAll('#tableClient>tbody tr');
     rows.forEach(row => row.parentNode.removeChild(row));
 }
@@ -94,6 +93,34 @@ const updateTable = () => {
     const dbClient = readClient()
     clearTable()
     dbClient.forEach(createRow)
+}
+
+const fillFields = (client) =>
+{
+    document.getElementById('nome').value = client.nome;
+    document.getElementById('email').value = client.email;
+    document.getElementById('celular').value = client.celular;
+    document.getElementById('cidade').value = client.cidade;
+    document.getElementById('estado').value = client.estado;
+}
+
+const editClient = (index) =>
+{
+    const client = readClient()[index];
+    fillFields(client);
+    openModal();
+}
+
+const editDelete = (event) => {
+    if (event.target.type == 'button') {
+        const [action, index] = event.target.id.split('-');
+        if (action == 'edit') {
+            editClient(index);
+        }
+        else {
+
+        }
+    }
 }
 
 // Eventos
@@ -105,3 +132,6 @@ document.getElementById('modalClose')
 
 document.getElementById('salvar')
     .addEventListener('click', saveClient)
+
+document.querySelector('#tableClient>tbody')
+    .addEventListener('click', editDelete)
