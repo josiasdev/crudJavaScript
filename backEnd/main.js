@@ -62,9 +62,17 @@ const saveClient = () => {
             cidade: document.getElementById('cidade').value,
             estado: document.getElementById('estado').value
         }
-        createClient(client);
-        updateTable();
-        closeModal();
+        const index = document.getElementById('nome').dataset.index;
+        if (index == 'new') {
+            createClient(client);
+            updateTable();
+            closeModal();
+        }
+        else {
+            updateClient(index, client);
+            updateTable();
+            closeModal();
+        }
     }
 }
 
@@ -95,18 +103,18 @@ const updateTable = () => {
     dbClient.forEach(createRow)
 }
 
-const fillFields = (client) =>
-{
+const fillFields = (client) => {
     document.getElementById('nome').value = client.nome;
     document.getElementById('email').value = client.email;
     document.getElementById('celular').value = client.celular;
     document.getElementById('cidade').value = client.cidade;
     document.getElementById('estado').value = client.estado;
+    document.getElementById('nome').dataset.index = client.index;
 }
 
-const editClient = (index) =>
-{
+const editClient = (index) => {
     const client = readClient()[index];
+    client.index = index;
     fillFields(client);
     openModal();
 }
@@ -118,10 +126,17 @@ const editDelete = (event) => {
             editClient(index);
         }
         else {
-            console.log("Deletando o cliente");
+            const client = readClient()[index];
+            const response = confirm(`Deseja realmente excluir o cliente: ${client.nome}`);
+            if (response) {
+                deleteClient(index);
+                updateTable();
+            }
         }
     }
 }
+
+updateTable();
 
 // Eventos
 document.getElementById('cadastrarCliente')
@@ -135,3 +150,6 @@ document.getElementById('salvar')
 
 document.querySelector('#tableClient>tbody')
     .addEventListener('click', editDelete)
+
+document.getElementById('cancelar')
+    .addEventListener('click', closeModal)
