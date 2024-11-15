@@ -118,7 +118,7 @@ const editDelete = (event) => {
             editClient(index);
         }
         else {
-
+            console.log("Deletando o cliente");
         }
     }
 }
